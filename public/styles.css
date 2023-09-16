@@ -1,9 +1,9 @@
 :root {
-  --text: #f2eefc;
-  --background: #120727;
-  --primary: #b0de54;
-  --secondary: #0a0415;
-  --accent: #8dc125;
+  --text: #030a20;
+  --background: #ecf0fd;
+  --primary: #3d12b5;
+  --secondary: #e9b9f8;
+  --accent: #a515d1;
 }
 .list-group-item {
   background-color: var(--background);
@@ -15,9 +15,6 @@
   --card-height: 65vh;
   --card-width: calc(var(--card-height) / 1.5);
 }
-.description-of-anime{
-  border: .5px solid var(--text);
-}
 body {
   min-height: 100vh;
   background: var(--background);
@@ -28,8 +25,8 @@ body {
   padding-bottom: 2rem;
   box-sizing: border-box;
 }
-.border {
-  border: .5px solid var(--text);
+.header {
+  color: white !important;
 }
 h1 {
   font-size: xxx-large;
