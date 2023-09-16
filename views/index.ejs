@@ -46,6 +46,11 @@
           <% }; %>
         </p>
       </div>
+      <div class="pb-3 d-flex justify-content-center">
+        <% if (locals.animeLink) {%>
+        <a href="<%= animeLink %>" target="_blank">Information Link</a>
+        <% }; %>
+      </div>
       <div class="pb-3">
         <div class="mt-3 d-flex justify-content-center">
           <form action="/submit" method="POST">
@@ -82,7 +87,7 @@
         <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
           <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
         </a>
-        <span class="mb-3 mb-md-0 text-body-secondary">© 2023</span>
+        <span class="mb-3 mb-md-0 text-body-secondary">Powered By Kitsu.io</span>
       </div>
     </footer>
   </div>

@@ -27,12 +27,13 @@ app.get(["/", "/random"], async (req, res) => {
         let animeName = result.data.attributes.titles.en;
         const animeImage = result.data.attributes.posterImage.large;
         const animeDescription = result.data.attributes.description;
+        let animeLink = `https://kitsu.io/anime/${result.data.attributes.slug}`;
 
         if (typeof animeName === "undefined"){
             animeName = result.data.attributes.slug;
         };
 
-        res.render(__dirname + "/views/index.ejs", {animeName: animeName, animeDescription: animeDescription, animeImage: animeImage})
+        res.render(__dirname + "/views/index.ejs", {animeName: animeName, animeDescription: animeDescription, animeImage: animeImage, animeLink: animeLink})
     } catch (error) {
         res.render(__dirname + "/views/index.ejs", {content: error});
     };
@@ -99,8 +100,9 @@ app.post("/submit", async (req, res) => {
             const animeName = resultFromCategory.find(item => item.id === random_choice).attributes.titles.en;
             const animeImage = resultFromCategory.find(item => item.id === random_choice).attributes.posterImage.large;
             const animeDescription = resultFromCategory.find(item => item.id === random_choice).attributes.description;
+            let animeLink = `https://kitsu.io/anime/${resultFromCategory.find(item => item.id === random_choice).attributes.slug}`;
 
-            res.render(__dirname + "/views/index.ejs", {animeName: animeName, animeDescription: animeDescription, animeImage: animeImage})
+            res.render(__dirname + "/views/index.ejs", {animeName: animeName, animeDescription: animeDescription, animeImage: animeImage, animeLink: animeLink})
         } else {
             res.render(__dirname + "/views/index.ejs", {animeName: "Please retry your request with one of the following valid genre name:", categoryFullList: categoryFullList})
         }; 

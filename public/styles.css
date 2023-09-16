@@ -24,6 +24,7 @@
   --card-width: calc(var(--card-height) / 1.5);
 }
 body {
+  font-family: "Mukta";
   /* min-height: 100vh; */
   background: var(--background);
   /* display: flex;
