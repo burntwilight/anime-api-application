@@ -103,7 +103,7 @@ app.post("/submit", async (req, res) => {
 
             res.render(__dirname + "/views/index.ejs", {animeName: animeName, animeDescription: animeDescription, animeImage: animeImage})
         } else {
-            res.render(__dirname + "/views/index.ejs", {animeName: "Please retry your request with a valid genre name", categoryFullList: categoryFullList})
+            res.render(__dirname + "/views/index.ejs", {animeName: "Please retry your request with one of the following valid genre name:", categoryFullList: categoryFullList})
         }; 
     } catch (error) {
         res.render(__dirname + "/views/index.ejs", {animeDescription: error});
