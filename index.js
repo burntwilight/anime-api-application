@@ -35,7 +35,6 @@ app.get(["/", "/random"], async (req, res) => {
         res.render(__dirname + "/views/index.ejs", {animeName: animeName, animeDescription: animeDescription, animeImage: animeImage})
     } catch (error) {
         res.render(__dirname + "/views/index.ejs", {content: error});
-        res.sendStatus(500);
     };
 });
 
@@ -107,7 +106,6 @@ app.post("/submit", async (req, res) => {
         }; 
     } catch (error) {
         res.render(__dirname + "/views/index.ejs", {animeDescription: error});
-        res.sendStatus(500);
     };
 });
 
