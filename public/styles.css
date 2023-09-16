@@ -9,37 +9,47 @@
   background-color: var(--background);
   color: var(--text);
 }
-
+.nav-link {
+  color: var(--text) !important;
+}
+.nav-link:hover {
+  color: var(--accent) !important;
+}
+.active {
+  background-color: var(--secondary) !important;
+}
 /* CARD */
 :root {
   --card-height: 65vh;
   --card-width: calc(var(--card-height) / 1.5);
 }
 body {
-  min-height: 100vh;
+  /* min-height: 100vh; */
   background: var(--background);
-  display: flex;
+  /* display: flex;
   align-items: center;
-  flex-direction: column;
+  flex-direction: column; */
   /* padding-top: 2rem; */
-  padding-bottom: 2rem;
-  box-sizing: border-box;
+  /* padding-bottom: 2rem; */
+  /* box-sizing: border-box; */
 }
 .header {
   color: white !important;
 }
 h1 {
-  font-size: xxx-large;
-  font-weight: bold;
   text-align: center;
+  font-size: xx-large;
+  font-weight: bold;
   color: var(--primary);
   font-family: "Mukta";
   margin-bottom: 2rem;
 }
-.center-img {
-  text-align: center;
+.anime-img {
+  width: 400px;
+  height: 580px;
 }
 p {
+  
   margin: auto;
   text-align: center;
   color: var(--text);  
@@ -53,7 +63,7 @@ ul {
 
 
 /* IMG FADE IN */
-img {
+#main-image {
   animation: fadeIn 5s;
   -webkit-animation: fadeIn 5s;
   -moz-animation: fadeIn 5s;
