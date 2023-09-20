@@ -25,14 +25,7 @@
 }
 body {
   font-family: "Mukta";
-  /* min-height: 100vh; */
   background: var(--background);
-  /* display: flex;
-  align-items: center;
-  flex-direction: column; */
-  /* padding-top: 2rem; */
-  /* padding-bottom: 2rem; */
-  /* box-sizing: border-box; */
 }
 .header {
   color: white !important;
