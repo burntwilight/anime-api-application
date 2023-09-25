@@ -55,4 +55,8 @@
   <%- include("login") %>
 <% }; %>
 
+<% if (locals.pageCheck === "About") { %>
+  <%- include("about") %>
+<% }; %>
+
 <%- include("partials/footer") %>

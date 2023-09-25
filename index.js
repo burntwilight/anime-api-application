@@ -5,10 +5,11 @@ import { dirname } from 'path';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-
+var pageCheck = "Home";
 
 const app = express()
 const APIBASEURL = "https://kitsu.io/api/edge/anime/"
+const AUTHBASEURL = "https://kitsu.io/api/oauth/"
 const CATEGORYFILTERURL = "?filter%5Bcategories%5D="
 const port = 3000
 
@@ -19,6 +20,7 @@ app.use(express.static(__dirname + '/public'))
 
 app.get(["/", "/random"], async (req, res) => {
     try {
+        pageCheck = "Home";
         let random_choice = Math.floor(Math.random() * 11000);
         const response = await axios.get(APIBASEURL+(random_choice));
 
@@ -33,7 +35,7 @@ app.get(["/", "/random"], async (req, res) => {
             animeName = result.data.attributes.slug;
         };
 
-        res.render(__dirname + "/views/index.ejs", {animeName: animeName, animeDescription: animeDescription, animeImage: animeImage, animeLink: animeLink})
+        res.render(__dirname + "/views/index.ejs", {animeName: animeName, animeDescription: animeDescription, animeImage: animeImage, animeLink: animeLink, pageCheck: pageCheck})
     } catch (error) {
         res.render(__dirname + "/views/index.ejs", {content: error});
     };
@@ -84,6 +86,8 @@ app.post("/submit", async (req, res) => {
             'military',
             'parody'
         ];
+        
+        pageCheck = "Home";
 
         const selectedCategory = req.body.category;
 
@@ -102,7 +106,7 @@ app.post("/submit", async (req, res) => {
             const animeDescription = resultFromCategory.find(item => item.id === random_choice).attributes.description;
             let animeLink = `https://kitsu.io/anime/${resultFromCategory.find(item => item.id === random_choice).attributes.slug}`;
 
-            res.render(__dirname + "/views/index.ejs", {animeName: animeName, animeDescription: animeDescription, animeImage: animeImage, animeLink: animeLink})
+            res.render(__dirname + "/views/index.ejs", {animeName: animeName, animeDescription: animeDescription, animeImage: animeImage, animeLink: animeLink, pageCheck: pageCheck})
         } else {
             res.render(__dirname + "/views/index.ejs", {animeName: "Please retry your request with one of the following valid genre name:", categoryFullList: categoryFullList})
         }; 
@@ -111,6 +115,46 @@ app.post("/submit", async (req, res) => {
     };
 });
 
+app.get("/login", async (req, res) => {
+    try {
+        pageCheck = "Login";
+
+        res.render(__dirname + "/views/index.ejs", {pageCheck: pageCheck})
+    } catch (error) {
+        res.render(__dirname + "/views/index.ejs", {content: error});
+    };
+});
+
+app.post("/login", (req, res) => {
+    try {
+
+        const response = req.body
+        
+        const userLoginInformation = {
+            grant_type: 'password',
+            username: response.email,
+            password: response.password // RFC3986 URl encoded string
+        };
+
+        pageCheck = "Home"
+
+        res.redirect("/")
+    } catch (error) {
+        res.render(__dirname + "/views/index.ejs", {content: error});
+    };
+});
+
+app.get("/about", (req, res) => {
+
+    pageCheck = "About"
+    
+    try {
+        res.render(__dirname + "/views/index.ejs", {pageCheck: pageCheck})
+    } catch (error) {
+        res.render(__dirname + "/views/index.ejs", {content: error})
+    }
+
+})
 
 app.listen(port, (req, res) => {
     console.log(`Server started on ${port}`);
