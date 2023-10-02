@@ -125,21 +125,27 @@ app.get("/login", async (req, res) => {
     };
 });
 
-app.post("/login", (req, res) => {
+app.post("/login", async (req, res) => {
     try {
 
-        const response = req.body
-        
+        const requestBody = req.body;
+
         const userLoginInformation = {
             grant_type: 'password',
-            username: response.email,
-            password: response.password // RFC3986 URl encoded string
+            username: req.body.email,
+            password: encodeURIComponent(req.body.password) // RFC3986 URl encoded string
         };
+
+        const response = await axios.post(`${AUTHBASEURL}token`, userLoginInformation)
 
         pageCheck = "Home"
 
+        // res.render(__dirname + "/views/index.ejs", {pageCheck: pageCheck})
+
         res.redirect("/")
+
     } catch (error) {
+        console.log(error.response.data)
         res.render(__dirname + "/views/index.ejs", {content: error});
     };
 });
