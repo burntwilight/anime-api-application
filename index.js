@@ -28,11 +28,15 @@ app.get(["/", "/random"], async (req, res) => {
         
         let animeName = result.data.attributes.titles.en;
         const animeImage = result.data.attributes.posterImage.large;
-        const animeDescription = result.data.attributes.description;
+        let animeDescription = result.data.attributes.description;
         let animeLink = `https://kitsu.io/anime/${result.data.attributes.slug}`;
 
+        if (typeof animeDescription === "undefined"){
+            animeDescription = "No description available."
+        };
+
         if (typeof animeName === "undefined"){
-            animeName = result.data.attributes.slug;
+            animeName = result.data.attributes.canonicalTitle;
         };
 
         res.render(__dirname + "/views/index.ejs", {animeName: animeName, animeDescription: animeDescription, animeImage: animeImage, animeLink: animeLink, pageCheck: pageCheck})
@@ -43,8 +47,10 @@ app.get(["/", "/random"], async (req, res) => {
 
 app.post("/submit", async (req, res) => {
     try {
+
         let resultArray = [];
-        const categoryFullList = [
+
+        let categoryFullList = [
             'comedy',
             'fantasy',
             'romance',
@@ -87,11 +93,12 @@ app.post("/submit", async (req, res) => {
             'parody'
         ];
         
-        pageCheck = "Home";
-
         const selectedCategory = req.body.category;
 
         if (categoryFullList.includes(selectedCategory)) {
+
+            pageCheck = "Home"
+
             const response = await axios.get(`${APIBASEURL}${CATEGORYFILTERURL}${selectedCategory}`);
             const result = response.data;
             const resultFromCategory = result.data;
@@ -108,10 +115,11 @@ app.post("/submit", async (req, res) => {
 
             res.render(__dirname + "/views/index.ejs", {animeName: animeName, animeDescription: animeDescription, animeImage: animeImage, animeLink: animeLink, pageCheck: pageCheck})
         } else {
-            res.render(__dirname + "/views/index.ejs", {animeName: "Please retry your request with one of the following valid genre name:", categoryFullList: categoryFullList})
-        }; 
+            pageCheck = "Categories"
+            res.render(__dirname + "/views/index.ejs", {animeName: "Please retry your request with one of the following valid genre name:", categoryFullList: categoryFullList, pageCheck: pageCheck})
+        };
     } catch (error) {
-        res.render(__dirname + "/views/index.ejs", {animeDescription: error});
+        res.render(__dirname + "/views/index.ejs", {animeDescription: error, pageCheck: pageCheck});
     };
 });
 
@@ -121,6 +129,7 @@ app.get("/login", async (req, res) => {
 
         res.render(__dirname + "/views/index.ejs", {pageCheck: pageCheck})
     } catch (error) {
+        console.log(`Error: Status ${error.response.status}, Message: ${error.response.data.error_description}`);
         res.render(__dirname + "/views/index.ejs", {content: error});
     };
 });
