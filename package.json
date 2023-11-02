@@ -4,6 +4,9 @@
   "description": "About:\r   Basic application to recommends random anime titles by calling out to kitsu's public API. Also allows sorting by genre/category.",
   "main": "index.js",
   "type": "module",
+  "engines": {
+    "node": "18.x"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "vercel-build": "echo hello"

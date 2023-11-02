@@ -175,4 +175,3 @@ app.listen(port, (req, res) => {
     console.log(`Server started on ${port}`);
 });
 
-export default app
