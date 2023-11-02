@@ -16,7 +16,11 @@ const port = 3000
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
+app.set("views", __dirname + "/views")
+app.set("view engine", "ejs")
+
 app.use(express.static(__dirname + '/public'))
+
 
 app.get(["/", "/random"], async (req, res) => {
     try {
