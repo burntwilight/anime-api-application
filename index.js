@@ -4,7 +4,7 @@ import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import { inject } from '@vercel/analytics'
 
-inject()
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -27,6 +27,7 @@ app.use(express.static(__dirname + '/public'))
 
 app.get(["/", "/random"], async (req, res) => {
     try {
+        inject()
         pageCheck = "Home";
         let random_choice = Math.floor(Math.random() * 11000);
         const response = await axios.get(APIBASEURL+(random_choice));
