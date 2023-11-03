@@ -11,23 +11,23 @@ const __dirname = dirname(__filename);
 var pageCheck = "Home";
 
 const app = express()
+const instrumentedApp = inject(app)
 const APIBASEURL = "https://kitsu.io/api/edge/anime/"
 const AUTHBASEURL = "https://kitsu.io/api/oauth/"
 const CATEGORYFILTERURL = "?filter%5Bcategories%5D="
 const port = 3000
 
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
+instrumentedApp.use(express.json())
+instrumentedApp.use(express.urlencoded({ extended: true }))
 
-app.set("views", __dirname + "/views")
-app.set("view engine", "ejs")
+instrumentedApp.set("views", __dirname + "/views")
+instrumentedApp.set("view engine", "ejs")
 
-app.use(express.static(__dirname + '/public'))
+instrumentedApp.use(express.static(__dirname + '/public'))
 
 
-app.get(["/", "/random"], async (req, res) => {
+instrumentedApp.get(["/", "/random"], async (req, res) => {
     try {
-        inject()
         pageCheck = "Home";
         let random_choice = Math.floor(Math.random() * 11000);
         const response = await axios.get(APIBASEURL+(random_choice));
@@ -53,7 +53,7 @@ app.get(["/", "/random"], async (req, res) => {
     };
 });
 
-app.post("/submit", async (req, res) => {
+instrumentedApp.post("/submit", async (req, res) => {
     try {
 
         let resultArray = [];
@@ -131,7 +131,7 @@ app.post("/submit", async (req, res) => {
     };
 });
 
-app.get("/login", async (req, res) => {
+instrumentedApp.get("/login", async (req, res) => {
     try {
         pageCheck = "Login";
 
@@ -142,7 +142,7 @@ app.get("/login", async (req, res) => {
     };
 });
 
-app.post("/login", async (req, res) => {
+instrumentedApp.post("/login", async (req, res) => {
     try {
 
         const requestBody = req.body;
@@ -167,7 +167,7 @@ app.post("/login", async (req, res) => {
     };
 });
 
-app.get("/about", (req, res) => {
+instrumentedApp.get("/about", (req, res) => {
 
     pageCheck = "About"
     
@@ -179,7 +179,7 @@ app.get("/about", (req, res) => {
 
 })
 
-app.listen(port, (req, res) => {
+instrumentedApp.listen(port, (req, res) => {
     console.log(`Server started on ${port}`);
 });
 
