@@ -130,41 +130,41 @@ app.post("/submit", async (req, res) => {
     };
 });
 
-app.get("/login", async (req, res) => {
-    try {
-        pageCheck = "Login";
+// app.get("/login", async (req, res) => {
+//     try {
+//         pageCheck = "Login";
 
-        res.render(__dirname + "/views/index.ejs", {pageCheck: pageCheck})
-    } catch (error) {
-        console.log(`Error: Status ${error.response.status}, Message: ${error.response.data.error_description}`);
-        res.render(__dirname + "/views/index.ejs", {content: error});
-    };
-});
+//         res.render(__dirname + "/views/index.ejs", {pageCheck: pageCheck})
+//     } catch (error) {
+//         console.log(`Error: Status ${error.response.status}, Message: ${error.response.data.error_description}`);
+//         res.render(__dirname + "/views/index.ejs", {content: error});
+//     };
+// });
 
-app.post("/login", async (req, res) => {
-    try {
+// app.post("/login", async (req, res) => {
+//     try {
 
-        const requestBody = req.body;
+//         const requestBody = req.body;
 
-        const userLoginInformation = {
-            grant_type: 'password',
-            username: req.body.email,
-            password: encodeURIComponent(req.body.password) // RFC3986 URl encoded string
-        };
+//         const userLoginInformation = {
+//             grant_type: 'password',
+//             username: req.body.email,
+//             password: encodeURIComponent(req.body.password) // RFC3986 URl encoded string
+//         };
 
-        const response = await axios.post(`${AUTHBASEURL}token`, userLoginInformation)
+//         const response = await axios.post(`${AUTHBASEURL}token`, userLoginInformation)
 
-        pageCheck = "Home"
+//         pageCheck = "Home"
 
-        // res.render(__dirname + "/views/index.ejs", {pageCheck: pageCheck})
+//         // res.render(__dirname + "/views/index.ejs", {pageCheck: pageCheck})
 
-        res.redirect("/")
+//         res.redirect("/")
 
-    } catch (error) {
-        console.log(error.response.data)
-        res.render(__dirname + "/views/index.ejs", {content: error});
-    };
-});
+//     } catch (error) {
+//         console.log(error.response.data)
+//         res.render(__dirname + "/views/index.ejs", {content: error});
+//     };
+// });
 
 app.get("/about", (req, res) => {
 
